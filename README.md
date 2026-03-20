@@ -96,7 +96,7 @@ O sistema está publicado e disponível em:
 ## 📸 Preview
 
 ![Registrar Venda](preview1.png)
-![Histórico](preview2.png)
+![Histórico](preview2.png)  
 ![Dashboard](preview3.png)
 
 ---
