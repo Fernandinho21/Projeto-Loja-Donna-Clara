@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donna Clara — Controle de Vendas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="brand-name">Donna Clara</span>
+    <span class="brand-sub">Controle de Vendas</span>
+  </div>
+  <span class="header-date" id="headerDate"></span>
+</header>
+
+<nav>
+  <button class="tab active" onclick="showPage('vendas')">Registrar Venda</button>
+  <button class="tab" onclick="showPage('historico')">Histórico</button>
+  <button class="tab" onclick="showPage('dashboard')">Dashboard</button>
+</nav>
+
+<main>
+
+  <!-- PÁGINA: VENDAS -->
+  <div class="page active" id="page-vendas">
+    <p class="section-title">Nova Venda</p>
+
+    <div class="form-grid" id="vendaForm">
+      <div class="form-group">
+        <label>Produto / Peça</label>
+        <input type="text" id="produto" placeholder="Ex: Vestido floral P">
+      </div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <select id="categoria">
+          <option value="">Selecione</option>
+          <option>Vestidos</option>
+          <option>Blusas</option>
+          <option>Calças</option>
+          <option>Saias</option>
+          <option>Acessórios</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tamanho</label>
+        <select id="tamanho">
+          <option value="">—</option>
+          <option>PP</option>
+          <option>P</option>
+          <option>M</option>
+          <option>G</option>
+          <option>GG</option>
+          <option>Único</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" id="quantidade" value="1" min="1">
+      </div>
+      <div class="form-group">
+        <label>Preço Unitário (R$)</label>
+        <input type="number" id="preco" placeholder="0,00" step="0.01" min="0">
+      </div>
+      <div class="form-group">
+        <label>Forma de Pagamento</label>
+        <select id="pagamento">
+          <option value="">Selecione</option>
+          <option>Dinheiro</option>
+          <option>Cartão Débito</option>
+          <option>Cartão Crédito</option>
+          <option>Pix</option>
+          <option>Fiado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Desconto (R$)</label>
+        <input type="number" id="desconto" value="0" min="0" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>Data da Venda</label>
+        <input type="date" id="dataVenda">
+      </div>
+      <div class="form-group full">
+        <label>Observação</label>
+        <input type="text" id="obs" placeholder="Ex: cliente fidelizada, troca...">
+      </div>
+      <div class="form-group full form-actions">
+        <button class="btn btn-gold" onclick="salvarVenda()">Registrar Venda</button>
+        <button class="btn btn-outline" onclick="limparForm()">Limpar</button>
+        <span id="totalPreview" style="margin-left:auto;font-family:'Playfair Display',serif;font-size:20px;color:var(--gold)"></span>
+      </div>
+    </div>
+
+    <p class="section-title">Últimas Vendas</p>
+    <div class="table-wrap" id="recentSalesWrap">
+      <div class="empty-state"><div class="icon">🛍️</div>Nenhuma venda registrada ainda.</div>
+    </div>
+  </div>
+
+  <!-- PÁGINA: HISTÓRICO -->
+  <div class="page" id="page-historico">
+    <p class="section-title">Histórico de Vendas</p>
+
+    <div class="filters">
+      <input type="text" id="filterText" placeholder="Buscar produto..." oninput="renderHistorico()">
+      <select id="filterCat" onchange="renderHistorico()">
+        <option value="">Todas categorias</option>
+        <option>Vestidos</option>
+        <option>Blusas</option>
+        <option>Calças</option>
+        <option>Saias</option>
+        <option>Acessórios</option>
+        <option>Outros</option>
+      </select>
+      <select id="filterPag" onchange="renderHistorico()">
+        <option value="">Todos pagamentos</option>
+        <option>Dinheiro</option>
+        <option>Cartão Débito</option>
+        <option>Cartão Crédito</option>
+        <option>Pix</option>
+        <option>Fiado</option>
+      </select>
+      <input type="date" id="filterDe" onchange="renderHistorico()">
+      <input type="date" id="filterAte" onchange="renderHistorico()">
+      <button class="btn btn-outline" onclick="limparFiltros()">Limpar filtros</button>
+      <button class="btn btn-gold" style="margin-left:auto" onclick="exportarCSV()">Exportar CSV</button>
+    </div>
+
+    <div class="table-wrap" id="historicoWrap">
+      <div class="empty-state"><div class="icon">📋</div>Nenhuma venda encontrada.</div>
+    </div>
+
+    <div id="historicoTotal" style="text-align:right;margin-top:14px;font-size:13px;color:var(--text-muted)"></div>
+  </div>
+
+  <!-- PÁGINA: DASHBOARD -->
+  <div class="page" id="page-dashboard">
+    <p class="section-title">Dashboard</p>
+
+    <div class="period-btns">
+      <button class="period-btn active" onclick="setPeriod('7',this)">7 dias</button>
+      <button class="period-btn" onclick="setPeriod('30',this)">30 dias</button>
+      <button class="period-btn" onclick="setPeriod('90',this)">3 meses</button>
+      <button class="period-btn" onclick="setPeriod('365',this)">1 ano</button>
+      <button class="period-btn" onclick="setPeriod('all',this)">Tudo</button>
+    </div>
+
+    <div class="cards-row" id="dashCards"></div>
+
+    <div class="dash-grid">
+      <div class="dash-block">
+        <div class="dash-block-title">Vendas por Categoria</div>
+        <div id="chartCat"></div>
+      </div>
+      <div class="dash-block">
+        <div class="dash-block-title">Formas de Pagamento</div>
+        <div id="chartPag"></div>
+      </div>
+      <div class="dash-block">
+        <div class="dash-block-title">Top 5 Produtos</div>
+        <div id="chartProd"></div>
+      </div>
+      <div class="dash-block">
+        <div class="dash-block-title">Vendas por Dia (últimos 14 dias)</div>
+        <div id="chartDia"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

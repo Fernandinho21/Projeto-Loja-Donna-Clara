@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donna Clara — Histórico de Vendas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="brand-name">Donna Clara</span>
+    <span class="brand-sub">Controle de Vendas</span>
+  </div>
+  <span class="header-date" id="headerDate"></span>
+</header>
+
+<nav>
+  <a href="vendas.html" class="tab">Registrar Venda</a>
+  <a href="historico.html" class="tab active">Histórico</a>
+  <a href="dashboard.html" class="tab">Dashboard</a>
+</nav>
+
+<main>
+
+  <!-- PÁGINA: HISTÓRICO -->
+  <div class="page active" id="page-historico">
+    <p class="section-title">Histórico de Vendas</p>
+
+    <div class="filters">
+      <input type="text" id="filterText" placeholder="Buscar produto..." oninput="renderHistorico()">
+      <select id="filterCat" onchange="renderHistorico()">
+        <option value="">Todas categorias</option>
+        <option>Vestidos</option>
+        <option>Blusas</option>
+        <option>Calças</option>
+        <option>Saias</option>
+        <option>Acessórios</option>
+        <option>Outros</option>
+      </select>
+      <select id="filterPag" onchange="renderHistorico()">
+        <option value="">Todos pagamentos</option>
+        <option>Dinheiro</option>
+        <option>Cartão Débito</option>
+        <option>Cartão Crédito</option>
+        <option>Pix</option>
+        <option>Fiado</option>
+      </select>
+      <input type="date" id="filterDe" onchange="renderHistorico()">
+      <input type="date" id="filterAte" onchange="renderHistorico()">
+      <button class="btn btn-outline" onclick="limparFiltros()">Limpar filtros</button>
+      <button class="btn btn-gold" style="margin-left:auto" onclick="exportarCSV()">Exportar CSV</button>
+    </div>
+
+    <div class="table-wrap" id="historicoWrap">
+      <div class="empty-state"><div class="icon">📋</div>Nenhuma venda encontrada.</div>
+    </div>
+
+    <div id="historicoTotal" style="text-align:right;margin-top:14px;font-size:13px;color:var(--text-muted)"></div>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script src="../script.js"></script>
+<script>
+// Inicializar histórico ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+  renderHistorico();
+});
+</script>
+</body>
+</html>
