@@ -89,14 +89,15 @@ O dashboard exibe em tempo real:
 
 O sistema está publicado e disponível em:
 
-🔗 **[donna-clara.netlify.app](https://donna-clara.netlify.app)** *(atualize com seu link real)*
+🔗 **[donna-clara.netlify.app](https://69bd6cd5ba88696df3070145--darling-pika-bdbaf1.netlify.app/)
 
 ---
 
 ## 📸 Preview
 
-> *(Adicione um screenshot do sistema aqui)*
-> No VS Code: `Ctrl+Shift+P` → "Markdown: Open Preview"
+![Registrar Venda](preview1.png)
+![Histórico](preview2.png)
+![Dashboard](preview3.png)
 
 ---
 
