@@ -95,9 +95,9 @@ O sistema está publicado e disponível em:
 
 ## 📸 Preview
 
-![Registrar Venda](preview1.png)
-![Histórico](preview2.png)  
-![Dashboard](preview3.png)
+![Registrar Venda](https://raw.githubusercontent.com/Fernandinho21/Projeto-Loja-Donna-Clara/main/preview1.png)
+![Histórico](https://raw.githubusercontent.com/Fernandinho21/Projeto-Loja-Donna-Clara/main/preview2.png)
+![Dashboard](https://raw.githubusercontent.com/Fernandinho21/Projeto-Loja-Donna-Clara/main/preview3.png)
 
 ---
 
